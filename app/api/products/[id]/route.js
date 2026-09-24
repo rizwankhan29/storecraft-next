@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { connectDB } from "@/lib/mongodb";
 import Product from "@/models/Product";
 import { cloudinary } from "@/lib/cloudinary";
@@ -123,6 +124,10 @@ export async function PUT(request, { params }) {
 
     const updatedProduct = await existingProduct.save();
 
+    // 👈 2. PURGE CACHES FOR BOTH HOME AND DETAILS PAGE
+    revalidatePath("/");
+    revalidatePath(`/product-details/${id}`);
+
     return NextResponse.json({
       success: true,
       message: "Product updated successfully!",
@@ -172,6 +177,9 @@ export async function DELETE(request, { params }) {
 
     // 3. Remove the document from MongoDB
     await Product.findByIdAndDelete(id);
+
+    // 👈 2. PURGE CACHES FOR BOTH HOME AND DETAILS PAGE
+    revalidatePath("/");
 
     return NextResponse.json({
       success: true,

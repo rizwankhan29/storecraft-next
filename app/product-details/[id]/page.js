@@ -50,9 +50,9 @@ const ProductDetails = async ({ params }) => {
           </div>
 
           {/* <!-- Thumbnails Row (3 Angles) --> */}
-          <div className="grid grid-cols-3 gap-3">
+          {/* <div className="grid grid-cols-3 gap-3">
             <ThumbnailRow />
-          </div>
+          </div> */}
         </div>
 
         {/* <!-- RIGHT: Product Info, Specs & Actions (6 cols on lg) --> */}
@@ -151,7 +151,7 @@ Calling .toString() converts that internal BSON object into a standard 24-charac
                 name={item.name}
                 image={item.imageUrl}
                 price={item.price}
-                status={(item.stock ?? 0 ) ? "In Stock" : ""}
+                status={(item.stock ?? 0 ) ? "In Stock" : "Out of Stock"}
               />
             ))}
         </div>

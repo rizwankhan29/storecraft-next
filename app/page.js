@@ -3,6 +3,9 @@ import Product from "@/models/Product";
 import { ProductCardHome } from "./components/ProductCardHome";
 import ProductCatelog from "./components/ProductCatalog";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 async function getProducts() {
   try {
     await connectDB();

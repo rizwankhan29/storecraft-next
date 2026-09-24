@@ -1,6 +1,8 @@
 // Import NextResponse to construct JSON responses in Next.js App Router
 import { NextResponse } from "next/server";
 
+import { revalidatePath } from "next/cache";
+
 // Import your cached database connection function from lib/mongodb.js
 import { connectDB } from "@/lib/mongodb";
 
@@ -113,6 +115,8 @@ export async function POST(request) {
       // Cloudinary public ID for managing the image asset
       imagePublicId: uploadResult.public_id,
     });
+
+    revalidatePath("/");
 
     // 10. Return success response with the created product payload
     return NextResponse.json(
